@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 public class CityPreference
 {
     //SharedPreferences是Android平台上一个轻量级的存储类，用来保存应用的一些常用配置。
+    //以键值对的形式存储相应的配置
     SharedPreferences prefs;
 
     public CityPreference(Activity activity)
