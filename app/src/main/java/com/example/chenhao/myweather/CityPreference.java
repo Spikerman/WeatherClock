@@ -1,3 +1,5 @@
+package com.example.chenhao.myweather;
+
 import android.app.Activity;
 import android.content.SharedPreferences;
 
