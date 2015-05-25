@@ -10,7 +10,7 @@
         android:label="@string/weather"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".WeatherActivity"
+            android:name=".MainActivity"
             android:label="@string/weather"
             android:screenOrientation="portrait">
             <intent-filter>

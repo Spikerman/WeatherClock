@@ -69,6 +69,7 @@ public class WeatherFragment extends android.support.v4.app.Fragment
 
         //getActivity():Return the Activity this fragment is currently associated with.
         weatherFont =Typeface.createFromAsset(getActivity().getAssets(),"weather.ttf");
+
         updateWeatherData(new CityPreference(getActivity()).getCity());
     }
 
