@@ -88,6 +88,7 @@ public class MainActivity extends FragmentActivity implements FragmentManager.On
 
     private void showInputDialog(){
         AlertDialog.Builder builder=new AlertDialog.Builder(this);
+
         builder.setTitle("Change city");
         final EditText input=new EditText(this);
         input.setInputType(InputType.TYPE_CLASS_TEXT);
@@ -158,6 +159,12 @@ public class MainActivity extends FragmentActivity implements FragmentManager.On
         mShowingBack=(getFragmentManager().getBackStackEntryCount()>0);
 
         invalidateOptionsMenu();
+    }
+
+    //按钮的相应事件
+    public void Change(View view)
+    {
+        showInputDialog();
     }
 
 }

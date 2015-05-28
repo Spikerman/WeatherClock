@@ -1,1 +1,2 @@
-include ':app'
+include ':app', ':MaterialDesign'
+project(':MaterialDesign').projectDir = new File('app/libs/MaterialDesignLibrary/MaterialDesign')
