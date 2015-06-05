@@ -3,25 +3,36 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#a6c"
+    android:background="#ffffffff"
     android:padding="16dp"
-    android:gravity="bottom">
+    android:gravity="top">
 
-    <TextView android:id="@android:id/text1"
-        style="?android:textAppearanceLarge"
-        android:textStyle="bold"
-        android:textColor="#fff"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/card_back_title" />
 
-    <TextView style="?android:textAppearanceSmall"
-        android:textAllCaps="true"
-        android:textColor="#80ffffff"
-        android:textStyle="bold"
-        android:lineSpacingMultiplier="1.2"
+    <ListView
+        android:layout_width="353dp"
+        android:layout_height="331dp"
+        android:id="@+id/listView"
+        android:layout_gravity="center_horizontal" />
+
+    <GridLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/card_back_description" />
+        android:layout_height="60dp">
+
+        <ImageButton
+            android:id="@+id/change_city_button"
+            android:layout_width="@dimen/fab_size"
+            android:layout_height="@dimen/fab_size"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_column="27"
+            android:layout_gravity="bottom|right"
+            android:layout_marginBottom="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_row="13"
+            android:background="@drawable/ripple_round"
+            android:elevation="10dp"
+            android:onClick="PickTime"
+            android:stateListAnimator="@animator/fab_anim" />
+    </GridLayout>
 
 </LinearLayout>

@@ -2,6 +2,7 @@ package com.example.chenhao.myweather;
 
 import android.app.AlertDialog;
 import android.app.FragmentManager;
+import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,12 +16,21 @@ import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.TimePicker;
+
+import java.util.Calendar;
+import java.util.TimeZone;
 
 
 public class MainActivity extends FragmentActivity implements FragmentManager.OnBackStackChangedListener {
 
 
-   private Handler mHandler =new Handler();
+    private TimePickerDialog timePickerDialog=null;
+    private TextView tv=null;
+
+    private Handler mHandler =new Handler();
 
     private boolean mShowingBack=false;
 
@@ -31,6 +41,13 @@ public class MainActivity extends FragmentActivity implements FragmentManager.On
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
+
+        tv=new TextView(this);
+        RelativeLayout.LayoutParams lp_tv=new RelativeLayout.LayoutParams(-2,-2);
+        lp_tv.addRule(RelativeLayout.CENTER_IN_PARENT);
+        tv.setLayoutParams(lp_tv);
+        this.addContentView(tv,lp_tv);
+
 
         if(savedInstanceState==null) {
             getSupportFragmentManager().beginTransaction().add(R.id.container, new WeatherFragment()).commit();
@@ -166,5 +183,35 @@ public class MainActivity extends FragmentActivity implements FragmentManager.On
     {
         showInputDialog();
     }
+
+
+    public void PickTime(View view)
+    {
+        if(timePickerDialog==null){
+            timePickerDialogInit();
+        }
+        timePickerDialog.show();
+
+
+    }
+
+    void timePickerDialogInit()
+    {
+        TimePickerDialog.OnTimeSetListener otsl=new TimePickerDialog.OnTimeSetListener(){
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute){
+                tv.setText("you set time: "+hourOfDay+"hour"+minute+"minute");
+                timePickerDialog.dismiss();
+            }
+        };
+
+        Calendar calendar=Calendar.getInstance(TimeZone.getDefault());
+
+        int hourOfDay=calendar.get(Calendar.HOUR_OF_DAY);
+
+        int minute=calendar.get(Calendar.MINUTE);
+
+        timePickerDialog=new TimePickerDialog(this,otsl,hourOfDay,minute,true);
+    }
+
 
 }
