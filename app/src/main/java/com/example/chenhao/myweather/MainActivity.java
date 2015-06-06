@@ -15,7 +15,9 @@ import android.view.MenuItem;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -34,19 +36,27 @@ public class MainActivity extends FragmentActivity implements FragmentManager.On
 
     private boolean mShowingBack=false;
 
+    private String[] strs=new String[]{"one","two","three","four","five"};
+    private ListView lv;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
         setContentView(R.layout.activity_main);
 
+
+
         tv=new TextView(this);
+
         RelativeLayout.LayoutParams lp_tv=new RelativeLayout.LayoutParams(-2,-2);
+
         lp_tv.addRule(RelativeLayout.CENTER_IN_PARENT);
-        tv.setLayoutParams(lp_tv);
-        this.addContentView(tv,lp_tv);
+        //tv.setLayoutParams(lp_tv);
+        //this.addContentView(tv,lp_tv);
+
 
 
         if(savedInstanceState==null) {
@@ -55,8 +65,7 @@ public class MainActivity extends FragmentActivity implements FragmentManager.On
             mShowingBack=(getFragmentManager().getBackStackEntryCount()>0);
         }
 
-        // Monitor back stack changes to ensure the action bar shows the appropriate
-        // button (either "photo" or "info").
+
         getFragmentManager().addOnBackStackChangedListener(this);
     }
 
@@ -138,9 +147,12 @@ public class MainActivity extends FragmentActivity implements FragmentManager.On
    //一个呈现在卡片背面的fragment
     public class CardBackFragment extends android.app.Fragment{
         @Override
-        public View onCreateView(LayoutInflater inflater,ViewGroup container,
-                                    Bundle savedInstanceState) {
-            return inflater.inflate(R.layout.fragment_clock, container, false);
+        public View onCreateView(LayoutInflater inflater,ViewGroup container, Bundle savedInstanceState)
+        {
+            View rootView=inflater.inflate(R.layout.fragment_clock, container, false);
+            lv=(ListView)rootView.findViewById(R.id.clockList);
+            lv.setAdapter(new ArrayAdapter<String>(getBaseContext(),android.R.layout.simple_list_item_checked,strs));
+            return rootView;
         }
     }
 

@@ -9,9 +9,10 @@
 
 
     <ListView
+
         android:layout_width="353dp"
         android:layout_height="331dp"
-        android:id="@+id/listView"
+        android:id="@+id/clockList"
         android:layout_gravity="center_horizontal" />
 
     <GridLayout
@@ -19,7 +20,7 @@
         android:layout_height="60dp">
 
         <ImageButton
-            android:id="@+id/change_city_button"
+            android:id="@+id/addTimeButton"
             android:layout_width="@dimen/fab_size"
             android:layout_height="@dimen/fab_size"
             android:layout_alignParentBottom="true"
