@@ -3,26 +3,35 @@ package com.example.chenhao.myweather;
 import android.app.AlertDialog;
 import android.app.FragmentManager;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.NavUtils;
+import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Objects;
 import java.util.TimeZone;
 
 
@@ -151,9 +160,92 @@ public class MainActivity extends FragmentActivity implements FragmentManager.On
         {
             View rootView=inflater.inflate(R.layout.fragment_clock, container, false);
             lv=(ListView)rootView.findViewById(R.id.clockList);
-            lv.setAdapter(new ArrayAdapter<String>(getBaseContext(),android.R.layout.simple_list_item_checked,strs));
+            MyAdapter myAdapter=new MyAdapter(getBaseContext());
+            lv.setAdapter(myAdapter);
+            lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+                                        long arg3) {
+                    Log.v("MyListViewBase", "你点击了ListView条目" + arg2);//在LogCat中输出信息
+                }
+            });
+            //lv.setAdapter(new ArrayAdapter<String>(getBaseContext(),android.R.layout.simple_list_item_checked,strs));
             return rootView;
         }
+    }
+
+    private class MyAdapter extends BaseAdapter {
+        private LayoutInflater mInflater;
+
+        public MyAdapter(Context context) {
+            this.mInflater = LayoutInflater.from(context);
+        }
+
+        @Override
+        public int getCount() {
+            return getDate().size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return 0;
+        }
+
+        @Override
+        public View getView(final int position, View convertView, ViewGroup parent) {
+            ViewHolder holder;
+            Log.v("MyListViewBase", "getView " + position + " " + convertView);
+            if (convertView == null) {
+                convertView = mInflater.inflate(R.layout.item, null);
+                holder = new ViewHolder();
+
+                holder.title = (TextView) convertView.findViewById(R.id.ItemTitle);
+                holder.text = (TextView) convertView.findViewById(R.id.ItemText);
+                holder.text = (Switch) convertView.findViewById(R.id.ItemSwitch);
+
+                convertView.setTag(holder);
+            } else {
+                holder = (ViewHolder) convertView.getTag();
+                holder.title.setText(getDate().get(position).get("ItemTitle").toString());
+                holder.text.setText(getDate().get(position).get("ItemText").toString());
+
+                holder.sw.setOnClickListener(
+                        new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+
+                                Log.v("MyListViewBase", "you choose" + position);
+
+                            }
+                        }
+                );
+
+            }
+            return convertView;
+        }
+
+
+        public final class ViewHolder{
+            public TextView title;
+            public TextView text;
+            public Switch sw;
+        }
+    }
+
+    private ArrayList<HashMap<String,Object>> getDate(){
+        ArrayList<HashMap<String,Object>> listItem=new ArrayList<HashMap<String, Object>>();
+        for(int i=0;i<30;i++){
+            HashMap<String,Object> map=new HashMap<String, Object>();
+            map.put("ItemTitle","No."+i);
+            map.put("ItemText","This is  No."+i);
+            listItem.add(map);
+        }
+        return listItem;
     }
 
     private void flipCard(){
