@@ -8,8 +8,10 @@
     android:layout_height="wrap_content" android:id="@+id/ItemSwitch"/>
 
     <TextView android:id="@+id/ItemTitle" android:layout_height="wrap_content"
-    android:layout_width="fill_parent" android:textSize="20sp"/>
+    android:layout_width="fill_parent" android:textSize="20sp"
+        android:textColor="#ff000000" />
 
     <TextView android:id="@+id/ItemText" android:layout_height="wrap_content"
-    android:layout_width="fill_parent" android:layout_below="@+id/ItemTitle"/>
+    android:layout_width="fill_parent" android:layout_below="@+id/ItemTitle"
+        android:textColor="#ff000000" />
 </RelativeLayout>

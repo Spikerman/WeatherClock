@@ -24,6 +24,7 @@ import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.SimpleAdapter;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -159,9 +160,20 @@ public class MainActivity extends FragmentActivity implements FragmentManager.On
         public View onCreateView(LayoutInflater inflater,ViewGroup container, Bundle savedInstanceState)
         {
             View rootView=inflater.inflate(R.layout.fragment_clock, container, false);
+
             lv=(ListView)rootView.findViewById(R.id.clockList);
-            MyAdapter myAdapter=new MyAdapter(getBaseContext());
-            lv.setAdapter(myAdapter);
+            //MyAdapter myAdapter=new MyAdapter(getBaseContext());
+            //lv.setAdapter(myAdapter);
+            ArrayList<HashMap<String,Object>> listItem=new ArrayList<HashMap<String,Object>>();
+            for(int i=0;i<3;i++){
+                HashMap<String,Object> map=new HashMap<String,Object>();
+                map.put("ItemTitle","the"+i);
+                map.put("ItemText","the text is "+i);
+                listItem.add(map);
+            }
+            SimpleAdapter simpleAdapter=new SimpleAdapter(getBaseContext(),listItem,R.layout.item,
+                    new String[]{"ItemTitle","ItemText","ItemSwitch"},new int[]{R.id.ItemTitle,R.id.ItemText,R.id.ItemSwitch});
+            lv.setAdapter(simpleAdapter);
             lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
@@ -169,10 +181,11 @@ public class MainActivity extends FragmentActivity implements FragmentManager.On
                     Log.v("MyListViewBase", "你点击了ListView条目" + arg2);//在LogCat中输出信息
                 }
             });
-            //lv.setAdapter(new ArrayAdapter<String>(getBaseContext(),android.R.layout.simple_list_item_checked,strs));
             return rootView;
         }
     }
+
+
 
     private class MyAdapter extends BaseAdapter {
         private LayoutInflater mInflater;
@@ -199,14 +212,16 @@ public class MainActivity extends FragmentActivity implements FragmentManager.On
         @Override
         public View getView(final int position, View convertView, ViewGroup parent) {
             ViewHolder holder;
+
             Log.v("MyListViewBase", "getView " + position + " " + convertView);
+
             if (convertView == null) {
                 convertView = mInflater.inflate(R.layout.item, null);
                 holder = new ViewHolder();
 
                 holder.title = (TextView) convertView.findViewById(R.id.ItemTitle);
                 holder.text = (TextView) convertView.findViewById(R.id.ItemText);
-                holder.text = (Switch) convertView.findViewById(R.id.ItemSwitch);
+                holder.sw = (Switch) convertView.findViewById(R.id.ItemSwitch);
 
                 convertView.setTag(holder);
             } else {
@@ -230,16 +245,15 @@ public class MainActivity extends FragmentActivity implements FragmentManager.On
         }
 
 
-        public final class ViewHolder{
+        public final class ViewHolder {
             public TextView title;
             public TextView text;
             public Switch sw;
         }
     }
-
     private ArrayList<HashMap<String,Object>> getDate(){
         ArrayList<HashMap<String,Object>> listItem=new ArrayList<HashMap<String, Object>>();
-        for(int i=0;i<30;i++){
+        for(int i=0;i<3;i++){
             HashMap<String,Object> map=new HashMap<String, Object>();
             map.put("ItemTitle","No."+i);
             map.put("ItemText","This is  No."+i);
