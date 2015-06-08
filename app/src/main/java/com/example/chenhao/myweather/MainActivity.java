@@ -154,7 +154,9 @@ public class MainActivity extends FragmentActivity implements FragmentManager.On
         }
     }
 
-   //一个呈现在卡片背面的fragment
+    private ArrayList<HashMap<String,Object>> listItem=new ArrayList<HashMap<String,Object>>();
+    private SimpleAdapter simpleAdapter=null;
+    //一个呈现在卡片背面的fragment
     public class CardBackFragment extends android.app.Fragment{
         @Override
         public View onCreateView(LayoutInflater inflater,ViewGroup container, Bundle savedInstanceState)
@@ -162,16 +164,18 @@ public class MainActivity extends FragmentActivity implements FragmentManager.On
             View rootView=inflater.inflate(R.layout.fragment_clock, container, false);
 
             lv=(ListView)rootView.findViewById(R.id.clockList);
+
             //MyAdapter myAdapter=new MyAdapter(getBaseContext());
             //lv.setAdapter(myAdapter);
-            ArrayList<HashMap<String,Object>> listItem=new ArrayList<HashMap<String,Object>>();
-            for(int i=0;i<3;i++){
+
+
                 HashMap<String,Object> map=new HashMap<String,Object>();
-                map.put("ItemTitle","the"+i);
-                map.put("ItemText","the text is "+i);
+                map.put("ItemTitle","9:00");
+                map.put("ItemText"," Clock");
+                //map.put("ItemText","the text is "+i);
                 listItem.add(map);
-            }
-            SimpleAdapter simpleAdapter=new SimpleAdapter(getBaseContext(),listItem,R.layout.item,
+
+            simpleAdapter=new SimpleAdapter(getBaseContext(),listItem,R.layout.item,
                     new String[]{"ItemTitle","ItemText","ItemSwitch"},new int[]{R.id.ItemTitle,R.id.ItemText,R.id.ItemSwitch});
             lv.setAdapter(simpleAdapter);
             lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -317,7 +321,26 @@ public class MainActivity extends FragmentActivity implements FragmentManager.On
     {
         TimePickerDialog.OnTimeSetListener otsl=new TimePickerDialog.OnTimeSetListener(){
             public void onTimeSet(TimePicker view, int hourOfDay, int minute){
-                tv.setText("you set time: "+hourOfDay+"hour"+minute+"minute");
+                //tv.setText("you set time: "+hourOfDay+"hour"+minute+"minute");
+                String hour;
+                String min;
+                if(hourOfDay<10)
+                    hour="0"+hourOfDay;
+                else
+                    hour=String.valueOf(hourOfDay);
+
+                if(minute<10)
+                    min="0"+minute;
+                else
+                    min=String.valueOf(minute);
+
+                HashMap<String,Object>map=new HashMap<String,Object>();
+                map.put("ItemTitle",hour+":"+min);
+                map.put("ItemText"," Clock");
+                listItem.add(map);
+                simpleAdapter=new SimpleAdapter(getBaseContext(),listItem,R.layout.item,
+                        new String[]{"ItemTitle","ItemText","ItemSwitch"},new int[]{R.id.ItemTitle,R.id.ItemText,R.id.ItemSwitch});
+                lv.setAdapter(simpleAdapter);
                 timePickerDialog.dismiss();
             }
         };

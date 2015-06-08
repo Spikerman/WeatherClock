@@ -2,13 +2,14 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_height="fill_parent"
+    android:padding="17dp">
 
     <Switch android:layout_alignParentRight="true" android:layout_width="wrap_content"
-    android:layout_height="wrap_content" android:id="@+id/ItemSwitch"/>
+    android:layout_height="wrap_content" android:id="@+id/ItemSwitch" android:focusable="false"/>
 
     <TextView android:id="@+id/ItemTitle" android:layout_height="wrap_content"
-    android:layout_width="fill_parent" android:textSize="20sp"
+    android:layout_width="fill_parent" android:textSize="25dp"
         android:textColor="#ff000000" />
 
     <TextView android:id="@+id/ItemText" android:layout_height="wrap_content"
