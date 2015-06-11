@@ -17,7 +17,8 @@
 
     <GridLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp">
+        android:layout_height="60dp"
+        android:layout_marginTop="60dp">
 
         <ImageButton
             android:id="@+id/addTimeButton"
@@ -31,7 +32,7 @@
             android:layout_marginRight="16dp"
             android:layout_row="13"
             android:background="@drawable/ripple_round"
-            android:elevation="10dp"
+            android:elevation="5dp"
             android:onClick="PickTime"
             android:stateListAnimator="@animator/fab_anim" />
     </GridLayout>

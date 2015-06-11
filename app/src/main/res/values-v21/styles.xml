@@ -9,6 +9,6 @@
     <color name="primary">#ff587e85</color>
     <color name="primary_dark">#ff46646b</color>
     <color name="window_color">#f9f9f9</color>
-    <color name="text_color">#222222</color>
+    <color name="text_color">#fffdfdfd</color>
 
 </resources>
